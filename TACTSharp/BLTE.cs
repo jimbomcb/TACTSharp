@@ -112,10 +112,11 @@ namespace TACTSharp
 
             ulong keyName = BinaryPrimitives.ReadUInt64LittleEndian(data[1..]);
             if (!KeyService.TryGetKey(keyName, out var key))
-            {
-                output = [];
-                return false;
-            }
+			{
+				output = [];
+				return false;
+				throw new Exception("decryption failed, missing key: " + keyName);
+			}
 
             byte IVSize = data[keyNameSize + 1];
 
